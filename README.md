@@ -7,7 +7,7 @@ My own portfolio website with an API and an admin panel.
 1. Run the bash script:
 
 ```
-bash ./bashScripts/create-all.sh
+bash ./scripts/dev-gen-api-env.sh
 ```
 
 to create development **.env** and **images/**.
@@ -28,15 +28,5 @@ to install all the **node modules** for:
 3. Run the npm script:
 
 ```
-npm run api-client
+npm run all
 ```
-
-to start the API and the client react website
-
-OR
-
-```
-npm run api-admin
-```
-
-to start the API and the admin react website.
