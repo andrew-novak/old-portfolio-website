@@ -1,0 +1,14 @@
+{
+  "name": "dev-imgs-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Andrew Novak",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
