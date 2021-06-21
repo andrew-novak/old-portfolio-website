@@ -1,10 +1,12 @@
 # Personal Website
 
-My own portfolio website.
-The web app consist of two front-end websites:
+My own portfolio website. The project consist of two front-end websites:
 - publicly visible content (**client/**) 
-- password-protected admin panel dependent on the react-admin module (**/admin**)
-both interacting with a shared NodeJS API (**/api**).
+- a password-protected admin panel, dependent on the react-admin module (**/admin**)
+both interacting with
+- a shared NodeJS API (**/api**).
+
+The project's root contains some scripts useful in development and deployment, as well as **devImgsApi/** that serves images when in development mode.
 
 ### How to start it? (Development Mode)
 
