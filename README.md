@@ -104,7 +104,7 @@ to set an API url for **client/** and **admin/** subprojects
 ```
 json -I -f admin/package.json -e "this.homepage=\"<admin url>\""
 ```
-You can just skip this step if they are not accessible through subroutes (eg. **https://exampleadmin.com** or **https://admin.example.com**).
+You can just skip this step if they are not accessible through subroutes (eg. **https://example.com** or **https://admin.example.com**).
 
 8. Build **client/** and **admin/** subprojects:
 
