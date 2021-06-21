@@ -1,4 +1,4 @@
-# Personal Website
+# personal-website
 
 My own portfolio website. The project consist of two front-end websites:
 - publicly visible content (**client/**) 
