@@ -99,7 +99,20 @@ to install all the **node modules** for:
 - **client/** subdirectory
 - **admin/** subdirectory
 
-6. Run:
+6. Rename and move the **api/** directory to desired location.
+
+7. Start the API:
+An example using PM2. You are free to use any other method.
+```
+mv <path to api/> <new location and name>
+pm2 start <path to renamed api/>/server.js --name <api name for PM2>
+```
+Example values:
+```
+mv ./api ~/personal-website-api
+pm2 start ~/personal-website-api/server.js --name personal-website-api
+```
+8. Run:
 
 ```
 node ./scripts/setApiUrl.js <full api url>
@@ -111,7 +124,7 @@ node ./scripts/setApiUrl.js https://example.com/api
 
 to set an API url for **client/** and **admin/** subprojects
 
-7*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
+9*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
 
 ```
 json -I -f admin/package.json -e "this.homepage=\"<full admin url>\""
@@ -123,24 +136,10 @@ json -I -f admin/package.json -e "this.homepage=\"https://example.com/admin\""
 
 You can just skip this step if they are not accessible through subroutes (eg. **https://example.com** or **https://admin.example.com**).
 
-8. Build **client/** and **admin/** subprojects:
+10. Build **client/** and **admin/** subprojects:
 
 ```
 npm run build-static
 ```
 
-9. Rename the newly created **admin/build/** and **client/build/** directories, and move them to desired locations.
-
-10. Rename and move the **api/** directory to desired location.
-
-11. Start the API:
-An example using PM2. You are free to use any other method.
-```
-mv <path to api/> <new location and name>
-pm2 start <path to renamed api/>/server.js --name <api name for PM2>
-```
-Example values:
-```
-mv ./api ~/personal-website-api
-pm2 start ~/personal-website-api/server.js --name personal-website-api
-```
+11. Rename the newly created **admin/build/** and **client/build/** directories, and move them to desired locations.
