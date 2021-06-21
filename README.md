@@ -9,6 +9,8 @@ both interacting with
 
 The project's root contains some scripts useful in development and deployment, as well as **devImgsApi/** that serves images when in development mode.
 
+To list, create or delete admins use the package **https://github.com/andrew-novak/personal-website-admin-manager**.
+
 ### How to start it? (Development Mode)
 
 1. Clone the repo:
