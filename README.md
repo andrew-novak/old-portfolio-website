@@ -1,6 +1,10 @@
 # Personal Website
 
-My own portfolio website with an API and an admin panel.
+My own portfolio website.
+The web app consist of two front-end websites:
+- publicly visible content (**client/**) 
+- password-protected admin panel dependent on the react-admin module (**/admin**)
+both interacting with a shared NodeJS API (**/api**).
 
 ### How to start it? (Development Mode)
 
