@@ -92,7 +92,7 @@ node ./scripts/setApiUrl.js <api_url>
 ```
 to set an API url for **client/** and **admin/** subprojects
 
-7*. Add the **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
+7*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
 
 ```
 json -I -f admin/package.json -e "this.homepage=\"<admin url>\""
