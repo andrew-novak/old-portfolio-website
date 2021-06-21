@@ -102,8 +102,13 @@ to install all the **node modules** for:
 6. Run:
 
 ```
-node ./scripts/setApiUrl.js <api_url>
+node ./scripts/setApiUrl.js <full api url>
 ```
+eg.
+```
+node ./scripts/setApiUrl.js https://example.com/api
+```
+
 to set an API url for **client/** and **admin/** subprojects
 
 7*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
