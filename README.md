@@ -45,11 +45,7 @@ npm run all
 
 ### How to deploy it? (Production Mode)
 
-1. Make sure you have a static content server set (eg. Nginx) that would serve images when accessing 
-```
-https://<url>/images
-```
-2. Set environment variables, eg.:
+1. Set environment variables, eg.:
 
 ```
 PERSONAL_WEBSITE_API_ROOT_ROUTE=/api
@@ -58,6 +54,17 @@ PERSONAL_WEBSITE_IMGS_ACCESS=<whole url to images>
 PERSONAL_WEBSITE_IMGS_LOCAL=<whole local path to images>
 PERSONAL_WEBSITE_JWT_SECRET=<your own secret>
 PERSONAL_WEBSITE_MONGO_URL=<whole url to your mongodb>
+```
+
+2. Make sure you have a static content server set (eg. Nginx) that serves the images directory **PERSONAL_WEBSITE_IMGS_LOCAL** when accessing the url **PERSONAL_WEBSITE_IMGS_ACCESS**.
+
+Eg. serve:
+```
+/usr/share/nginx/personal-website-images
+```
+when accessing:
+```
+https://example.com/images
 ```
 
 3. Clone the repo:
@@ -97,7 +104,7 @@ to set an API url for **client/** and **admin/** subprojects
 ```
 json -I -f admin/package.json -e "this.homepage=\"<admin url>\""
 ```
-You can just skip this step if they are not accessible through subroutes (eg. **https://exampleadmin.com** or **admin.example.com**).
+You can just skip this step if they are not accessible through subroutes (eg. **https://exampleadmin.com** or **https://admin.example.com**).
 
 8. Build **client/** and **admin/** subprojects:
 
