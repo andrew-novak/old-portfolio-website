@@ -63,7 +63,11 @@ PERSONAL_WEBSITE_JWT_SECRET=<your own secret>
 PERSONAL_WEBSITE_MONGO_URL=<whole url to your mongodb>
 ```
 
-2. Make sure you have a static content server set (eg. Nginx) that serves the images directory **PERSONAL_WEBSITE_IMGS_LOCAL** when accessing the url **PERSONAL_WEBSITE_IMGS_ACCESS**.
+2. Make sure you have a static content and proxy server set (eg. Nginx) that would
+- serve the images directory **PERSONAL_WEBSITE_IMGS_LOCAL** when accessing the url **PERSONAL_WEBSITE_IMGS_ACCESS**
+- serve the client website (eg. when accessing **https://example.com**)
+- serve the admin website (eg. when accessing **https://example.com/admin**)
+- proxy NodeJS API (eg. when accessing **https://example.com/api**)
 
 Eg. serve:
 ```
@@ -73,6 +77,7 @@ when accessing:
 ```
 https://example.com/images
 ```
+
 
 3. Clone the repo:
 
