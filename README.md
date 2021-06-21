@@ -64,10 +64,10 @@ PERSONAL_WEBSITE_MONGO_URL=<whole url to your mongodb>
 ```
 
 2. Make sure you have a static content and proxy server set (eg. Nginx) that would
-- serve the images directory **PERSONAL_WEBSITE_IMGS_LOCAL** when accessing the url **PERSONAL_WEBSITE_IMGS_ACCESS**
-- serve the client website (eg. when accessing **https://example.com**)
-- serve the admin website (eg. when accessing **https://example.com/admin**)
-- proxy NodeJS API (eg. when accessing **https://example.com/api**)
+- serve the images directory **PERSONAL_WEBSITE_IMGS_LOCAL** (eg. **/usr/share/nginx/personal-website-images**) when accessing the url **PERSONAL_WEBSITE_IMGS_ACCESS** (eg. **https://example.com/images**)
+- serve the client website (eg. serve **/usr/share/nginx/personal-website-client** when accessing **https://example.com**)
+- serve the admin website (eg. serve **/usr/share/nginx/personal-website-admin** when accessing **https://example.com/admin**)
+- proxy NodeJS API (eg. proxy to **http://localhost:4000** when accessing **https://example.com/api**)
 
 Eg. serve:
 ```
