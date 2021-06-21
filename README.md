@@ -112,9 +112,11 @@ npm run build-static
 11. Start the API:
 An example using PM2. You are free to use any other method.
 ```
-pm2 start <target location><api root>/server.js --name <api name>
+mv <path to api/> <new location and name>
+pm2 start <path to renamed api/>/server.js --name <api name for PM2>
 ```
 Example values:
 ```
-pm2 start ./api/server.js --name personal-website-api
+mv ./api ~/personal-website-api
+pm2 start ~/personal-website-api/server.js --name personal-website-api
 ```
