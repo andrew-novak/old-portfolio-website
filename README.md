@@ -3,6 +3,7 @@
 My own portfolio website. The project consist of two front-end websites:
 - publicly visible content (**client/**) 
 - a password-protected admin panel, dependent on the react-admin module (**/admin**)
+
 both interacting with
 - a shared NodeJS API (**/api**).
 
