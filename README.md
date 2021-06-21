@@ -122,9 +122,9 @@ eg.
 node ./scripts/setApiUrl.js https://example.com/api
 ```
 
-to set an API url for **client/** and **admin/** subprojects
+to set the full API url for **client/** and **admin/** subprojects
 
-9*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if they will be accessible through subroutes (eg. **https://example.com/admin**):
+9*. Add **homepage** properties to **client/package.json** and/or **admin/package.json** if any of them will be accessible through subroutes (eg. **https://example.com/admin**):
 
 ```
 json -I -f admin/package.json -e "this.homepage=\"<full admin url>\""
@@ -143,3 +143,9 @@ npm run build-static
 ```
 
 11. Rename the newly created **admin/build/** and **client/build/** directories, and move them to desired locations.
+
+Eg.
+```
+mv ./client/build /usr/share/nginx/personal-website-client
+mv ./admin/build /usr/share/nginx/personal-website-admin
+```
