@@ -45,7 +45,7 @@ to install all the **node modules** for:
 4. Run the bash script:
 
 ```
-bash ./scripts/dev-gen-api-env.sh
+bash ./scripts/devGenApiEnvs.sh
 ```
 
 to create a development API's **.env** file with default values. (`PERSONAL_WEBSITE_IMGS_ACCESS` is relative in development, eg. `/images-dev`)
