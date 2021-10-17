@@ -6,7 +6,7 @@ const {
   validationResult
 } = require("express-validator");
 
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 const PROJECT_TITLE_MAX_LENGTH = 30;
 const PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 500;

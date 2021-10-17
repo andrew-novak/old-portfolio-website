@@ -3,12 +3,20 @@ const fs = require("fs");
 const { access, mkdir } = fs.promises;
 const { F_OK } = fs.constants;
 
+const NODE_ENV = process.env.NODE_ENV;
+const PORT = process.env.PERSONAL_WEBSITE_API_PORT;
 const IMGS_LOCAL = process.env.PERSONAL_WEBSITE_IMGS_LOCAL;
 const IMGS_ACCESS = process.env.PERSONAL_WEBSITE_IMGS_ACCESS;
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 const genImgPathGetters = group => {
   const defaultFilename = "original.png";
+
+  const imgsAccessUrl =
+    NODE_ENV === "development"
+      ? `http://localhost:${PORT}${IMGS_ACCESS}`
+      : IMGS_ACCESS;
+
   return {
     groupImages: join(IMGS_LOCAL, group),
     itemImages: unique => join(IMGS_LOCAL, group, unique),
@@ -20,7 +28,7 @@ const genImgPathGetters = group => {
         customFilename ? `${customFilename}.png` : defaultFilename
       ),
     itemImageUrl: (unique, customFilename) =>
-      `${IMGS_ACCESS}/${group}/${unique}/${
+      `${imgsAccessUrl}/${group}/${unique}/${
         customFilename ? `${customFilename}.png` : defaultFilename
       }`
   };

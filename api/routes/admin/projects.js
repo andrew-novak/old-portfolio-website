@@ -7,7 +7,7 @@ const path = require("path");
 const rimraf = require("rimraf");
 
 const { Project } = require("../../models/Project");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 const {
   validateRange,
   validateId,

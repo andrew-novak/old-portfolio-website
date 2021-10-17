@@ -2,8 +2,8 @@ const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const jwtSecret = process.env.PERSONAL_WEBSITE_JWT_SECRET;
-const logger = require("../../logger");
+const JWT_SECRET = process.env.PERSONAL_WEBSITE_JWT_SECRET;
+const logger = require("../../config/logger");
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post("/", (req, res, next) => {
         return res.status(500).json(null);
       }
 
-      const idToken = jwt.sign({ adminId: admin._id }, jwtSecret);
+      const idToken = jwt.sign({ adminId: admin._id }, JWT_SECRET);
       logger.debug(
         "admin successfully logged in, sending token id to the client..."
       );

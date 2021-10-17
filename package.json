@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "api": "concurrently \"npm run start --prefix devImgsApi\" \"npm run dev --prefix api\"",
+    "api": "npm run dev --prefix api",
     "client": "npm start --prefix client",
     "admin": "npm start --prefix admin",
     "api-client": "concurrently \"npm run api\" \"npm run client\"",
     "api-admin": "concurrently \"npm run api\" \"npm run admin\"",
     "all": "concurrently \"npm run api\" \"npm run client\" \"npm run admin\"",
     "install-all": "(npm i) && (npm i --prefix api) && (npm i --prefix devImgsApi) && (npm i --prefix client) && (npm i --prefix admin)",
-    "build-static": "node ./scripts/checkEnvVars.js && npm run build --prefix client && npm run build --prefix admin"
+    "build-static": "node ./scripts/checkEnvVars.js && npm run build --prefix client && npm run build --prefix admin",
+    "clear-data": "npm run clear-data --prefix api"
   },
   "devDependencies": {
     "chalk": "^2.4.2",
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "rimraf": "^3.0.2"
   }
 }

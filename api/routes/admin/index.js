@@ -2,7 +2,7 @@ const express = require("express");
 const passport = require("passport");
 
 const login = require("./login");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 const mediaLinks = require("./mediaLinks");
 const segments = require("./segments");
 const projects = require("./projects");

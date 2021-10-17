@@ -7,7 +7,7 @@ const path = require("path");
 const rimraf = require("rimraf");
 
 const { MediaLink: Link } = require("../../models/MediaLink");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 const { validateRange, validateId, reviewValidation } = require("./validation");
 
 const router = express.Router();

@@ -7,7 +7,7 @@ const { writeFile } = fs.promises;
 const rimraf = require("rimraf");
 
 const { Segment } = require("../../models/Segment");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 const {
   validateRange,
   validateId,
