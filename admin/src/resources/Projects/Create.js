@@ -12,12 +12,13 @@ import {
 const ProjectCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <ImageInput source="image">
-        <ImageField source="src" />
-      </ImageInput>
-      <ImageInput source="imageExtra">
-        <ImageField source="src" />
-      </ImageInput>
+      <ArrayInput source="graphics">
+        <SimpleFormIterator>
+          <ImageInput source="graphic">
+            <ImageField source="src" />
+          </ImageInput>
+        </SimpleFormIterator>
+      </ArrayInput>
       <TextInput source="title" />
       <TextInput multiline source="shortDescription" />
       <TextInput multiline source="fullDescription" />

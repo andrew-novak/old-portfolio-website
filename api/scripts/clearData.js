@@ -37,7 +37,7 @@ const specificValueQuestion = ({ value, question, onSuccess }) =>
       rl.question(`${question}: `, answer => {
         const match = answer === value;
         if (match) resolve(onSuccess ? onSuccess() : null);
-        ask();
+        else ask();
       });
     };
     ask();
@@ -73,12 +73,10 @@ const connectToDb = () =>
       });
   });
 
-const dropDatabase = dbName =>
-  new Promise((resolve, reject) => {
-    mongoose.connection.db.dropDatabase();
-    console.log(`${checkMark} 2/2 '${dbName}' database dropped.`);
-    resolve();
-  });
+const dropDatabase = async dbName => {
+  await mongoose.connection.db.dropDatabase();
+  console.log(`${checkMark} 2/2 '${dbName}' database dropped.`);
+};
 
 const startQuestions = async () => {
   await yesNoQuestion({
@@ -94,7 +92,6 @@ const startQuestions = async () => {
     question: `Are you absolutely sure you want to drop '${dbName}' DB?\nEnter the DB name '${dbName}'`,
     value: dbName
   });
-  console.log(`Mongoose connection: ${mongoose.connection.toString()}`);
   await dropDatabase(dbName);
   rl.close();
   process.exit(1);
