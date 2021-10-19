@@ -114,7 +114,7 @@ router.post(
               }
 
               if (image64) {
-                const imgPath = itemImage(_id.toString());
+                const imgPath = itemImage(_id.toString(), "original", "png");
                 logger.debug(`saving segment image ${logId}`);
                 try {
                   await writeFile(imgPath, image64, "base64");
@@ -132,7 +132,11 @@ router.post(
                   });
                 }
                 logger.debug(`adding image url to segment ${logId}`);
-                const imageUrl = itemImageUrl(_id.toString());
+                const imageUrl = itemImageUrl(
+                  _id.toString(),
+                  "original",
+                  "png"
+                );
                 Segment.findByIdAndUpdate({ _id }, { imageUrl }, err => {
                   if (err) {
                     logger.error(err);
@@ -176,8 +180,8 @@ router.put(
 
       let imageUrl;
       if (image64) {
-        imageUrl = itemImageUrl(_id.toString());
-        const imgPath = itemImage(_id.toString());
+        imageUrl = itemImageUrl(_id.toString(), "original", "png");
+        const imgPath = itemImage(_id.toString(), "original", "png");
         logger.debug(`replacing image for segment ${logId}`);
         await writeFile(imgPath, image64, "base64", err => {
           if (err) {

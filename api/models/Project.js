@@ -4,6 +4,7 @@ const { ProjectLinkSchema } = require("./ProjectLink");
 
 const ProjectSchema = new mongoose.Schema({
   id: Number,
+  graphicUrls: [String],
   imageUrl: String,
   imageUrlExtra: String,
   title: String,

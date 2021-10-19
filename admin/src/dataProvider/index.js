@@ -17,6 +17,17 @@ const modifyRequest = async (method, resource, params) => {
   if (graphics[1]) {
     image64Extra = await convertFileToBase64(graphics[1].graphic.rawFile);
   }
+  var extensionRegex = /(?:\.([^.]+))?$/;
+  const base64Graphics = await Promise.all(
+    graphics.map(async ({ graphic }) => {
+      const base64 = await convertFileToBase64(graphic.rawFile);
+      const extension = extensionRegex.exec(graphic.rawFile.path)[1];
+      return {
+        base64,
+        extension,
+      };
+    })
+  );
   delete params.data.graphics;
   return await dataProvider[method](resource, {
     ...params,
@@ -24,6 +35,7 @@ const modifyRequest = async (method, resource, params) => {
       ...params.data,
       ...(image64 ? { image64 } : null),
       ...(image64Extra ? { image64Extra } : null),
+      graphics: base64Graphics,
     },
   });
 };

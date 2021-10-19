@@ -80,6 +80,7 @@ router.post(
     const {
       image64,
       image64Extra,
+      graphics,
       title,
       shortDescription,
       fullDescription,
@@ -95,8 +96,8 @@ router.post(
         if (lastProject) {
           id = lastProject.id + 1;
         }
-        const logInfo = `(${id} ${title})`;
-        logger.debug(`attempt to create a project ${logInfo}`);
+        const logInfo = `[project ${id} ${title}]`;
+        logger.debug(`${logInfo} project creation start`);
         const filteredLinks = links ? filterLinks(links) : null;
         Project.create(
           {
@@ -110,21 +111,21 @@ router.post(
             const { _id } = project;
             if (err) {
               logger.error(
-                `could not create a project document ${logInfo}:\n${err}`
+                `${logInfo} could not create a project document:\n${err}`
               );
               return res.status(500).json(null);
             }
 
             await createDirIfNone(groupImages, res);
             const dir = itemImages(_id.toString());
-            logger.debug(`creating image directory "${dir}"`);
+            logger.debug(`${logInfo} creating image directory "${dir}"`);
             fs.mkdir(dir, async err => {
               if (err) {
                 logger.error(
                   `error during a directory creation (fs.mkdir):\n${err}`
                 );
                 logger.debug(
-                  `deleting newly created project document ${logInfo}`
+                  `${logInfo} deleting newly created project document`
                 );
                 return Project.findByIdAndDelete({ _id }, err => {
                   if (err) logger.error(err);
@@ -132,18 +133,22 @@ router.post(
                 });
               }
 
-              logger.debug(`saving project images ${logInfo}`);
+              logger.debug(`${logInfo} saving project images`);
               try {
-                const imgPath = itemImage(_id.toString(), "main");
+                const imgPath = itemImage(_id.toString(), "main", "png");
                 await writeFile(imgPath, image64, "base64");
                 if (image64Extra) {
-                  const imgPathExtra = itemImage(_id.toString(), "extra");
+                  const imgPathExtra = itemImage(
+                    _id.toString(),
+                    "extra",
+                    "png"
+                  );
                   await writeFile(imgPathExtra, image64Extra, "base64");
                 }
               } catch (err) {
                 logger.error(`error during project images save:\n${err}`);
                 logger.debug(
-                  `deleting newly created document & directory ${logInfo}`
+                  `${logInfo} deleting newly created document & directory`
                 );
                 return Project.findByIdAndDelete({ _id }, err => {
                   if (err) logger.error(err);
@@ -154,22 +159,68 @@ router.post(
                 });
               }
 
-              const imageUrl = itemImageUrl(_id.toString(), "main");
+              const deleteProject = () => {
+                logger.debug(
+                  `${logInfo} deleting newly created document and directory`
+                );
+                Project.findByIdAndDelete({ _id }, err => {
+                  if (err) logger.error(err);
+                  rimraf(dir, err => {
+                    logger.error(err);
+                    res.status(500).json(null);
+                  });
+                });
+              };
+
+              const saveGraphics = async graphics => {
+                logger.debug(`${logInfo} saving project graphics`);
+                const graphicUrls = [];
+                await Promise.all(
+                  graphics.map(async ({ base64, extension }, index) => {
+                    const filename = index;
+                    const path = itemImage(_id.toString(), filename, extension);
+                    await writeFile(path, base64, "base64");
+                    const url = itemImageUrl(
+                      _id.toString(),
+                      filename,
+                      extension
+                    );
+                    graphicUrls.push(url);
+                  })
+                ).catch(err => {
+                  logger.error(`error during project graphic save:\n${err}`);
+                  throw err;
+                });
+                return graphicUrls;
+              };
+
+              let graphicUrls;
+              try {
+                graphicUrls = await saveGraphics(graphics);
+              } catch (err) {
+                return deleteProject();
+              }
+
+              const imageUrl = itemImageUrl(_id.toString(), "main", "png");
               const imageUrlExtra = image64Extra
-                ? itemImageUrl(_id.toString(), "extra")
+                ? itemImageUrl(_id.toString(), "extra", "png")
                 : null;
 
-              logger.debug(`adding image urls to project ${logInfo}`);
+              logger.debug(`${logInfo} adding image urls to project`);
               Project.findByIdAndUpdate(
                 { _id },
-                { imageUrl, ...(imageUrlExtra ? { imageUrlExtra } : null) },
+                {
+                  imageUrl,
+                  ...(imageUrlExtra ? { imageUrlExtra } : null),
+                  graphicUrls
+                },
                 err => {
                   if (err) {
                     logger.error(err);
                     return res.status(500).json(null);
                   }
                   logger.debug(
-                    `sending new project id ${logInfo} to client...`
+                    `${logInfo} sending new project id to client...`
                   );
                   res.status(200).json({ id });
                 }
@@ -217,8 +268,8 @@ router.put(
 
       let imageUrl;
       if (image64) {
-        imageUrl = itemImageUrl(_id.toString(), "main");
-        const img = itemImage(_id.toString(), "main");
+        imageUrl = itemImageUrl(_id.toString(), "main", "png");
+        const img = itemImage(_id.toString(), "main", "png");
         logger.debug(`replacing project main image ${logInfo}`);
         await writeFile(img, image64, "base64", err => {
           if (err) {
@@ -230,8 +281,8 @@ router.put(
 
       let imageUrlExtra;
       if (image64Extra) {
-        imageUrlExtra = itemImageUrl(_id.toString(), "extra");
-        const imgExtra = itemImage(_id.toString(), "extra");
+        imageUrlExtra = itemImageUrl(_id.toString(), "extra", "png");
+        const imgExtra = itemImage(_id.toString(), "extra", "png");
         logger.debug(`replacing project extra image ${logInfo}`);
         await writeFile(imgExtra, image64Extra, "base64", err => {
           if (err) {

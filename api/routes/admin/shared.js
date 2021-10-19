@@ -10,8 +10,6 @@ const IMGS_ACCESS = process.env.PERSONAL_WEBSITE_IMGS_ACCESS;
 const logger = require("../../config/logger");
 
 const genImgPathGetters = group => {
-  const defaultFilename = "original.png";
-
   const imgsAccessUrl =
     NODE_ENV === "development"
       ? `http://localhost:${PORT}${IMGS_ACCESS}`
@@ -20,17 +18,10 @@ const genImgPathGetters = group => {
   return {
     groupImages: join(IMGS_LOCAL, group),
     itemImages: unique => join(IMGS_LOCAL, group, unique),
-    itemImage: (unique, customFilename) =>
-      join(
-        IMGS_LOCAL,
-        group,
-        unique,
-        customFilename ? `${customFilename}.png` : defaultFilename
-      ),
-    itemImageUrl: (unique, customFilename) =>
-      `${imgsAccessUrl}/${group}/${unique}/${
-        customFilename ? `${customFilename}.png` : defaultFilename
-      }`
+    itemImage: (unique, filename, extension) =>
+      join(IMGS_LOCAL, group, unique, `${filename}.${extension}`),
+    itemImageUrl: (unique, filename, extension) =>
+      `${imgsAccessUrl}/${group}/${unique}/${filename}.${extension}`
   };
 };
 
